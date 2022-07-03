@@ -1,0 +1,71 @@
+class CountrySummaryModel {
+  final int updated;
+  final String country;
+  final int cases;
+  final int todayCases;
+  final int deaths;
+  final int todayDeaths;
+  final int recovered;
+  final int todayRecovered;
+  final int active;
+
+  CountrySummaryModel(
+      this.updated,
+      this.country,
+      this.cases,
+      this.todayCases,
+      this.deaths,
+      this.todayDeaths,
+      this.recovered,
+      this.todayRecovered,
+      this.active);
+
+  factory CountrySummaryModel.fromJson(Map<String, dynamic> json) {
+    return CountrySummaryModel(
+      json['updated'],
+      json['country'],
+      json['cases'],
+      json['todayCases'],
+      json['deaths'],
+      json['todayDeaths'],
+      json['recovered'],
+      json['todayRecovered'],
+      json['active'],
+    );
+  }
+}
+class CoronaCountryList {
+  List<CountrySummaryChartModel>? countries;
+
+  CoronaCountryList({required this.countries});
+
+  CoronaCountryList.fromJson(List<dynamic> parsedJson) {
+    if (parsedJson != null) {
+      countries = <CountrySummaryChartModel>[];
+      countries = parsedJson.map((i) => CountrySummaryChartModel.fromJson(i)).toList();
+    }
+  }
+}
+
+class CountrySummaryChartModel {
+  final String country;
+  final int confirmed;
+  final int death;
+  final int recovered;
+  final int active;
+  final DateTime date;
+
+  CountrySummaryChartModel(this.country, this.confirmed, this.death,
+      this.recovered, this.active, this.date);
+
+  factory CountrySummaryChartModel.fromJson(Map<String, dynamic> json) {
+    return CountrySummaryChartModel(
+      json['Country'],
+      json['Confirmed'],
+      json['Deaths'],
+      json['Recovered'],
+      json['Active'],
+      DateTime.parse(json['Date']),
+    );
+  }
+}
